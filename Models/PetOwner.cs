@@ -12,7 +12,7 @@ namespace pet_hotel
         public string name {get; set;}
         public string emailAddress {get; set;}
 
-        [ForeignKey("petCount")]
-        public int petCount {get; set;}
+        // [ForeignKey("petCount")]
+        // public int petCount {get; set;}
     }
 }
