@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace dotnet_bakery.Migrations
+namespace y.Migrations
 {
-    public partial class petHotelDatabase : Migration
+    public partial class RedoTablesWithFK : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,21 +31,33 @@ namespace dotnet_bakery.Migrations
                     name = table.Column<string>(type: "text", nullable: false),
                     breedType = table.Column<int>(type: "integer", nullable: false),
                     colorType = table.Column<int>(type: "integer", nullable: false),
-                    checkedInAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    checkedInAt = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    ownerId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pets", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Pets_PetOwners_ownerId",
+                        column: x => x.ownerId,
+                        principalTable: "PetOwners",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pets_ownerId",
+                table: "Pets",
+                column: "ownerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PetOwners");
+                name: "Pets");
 
             migrationBuilder.DropTable(
-                name: "Pets");
+                name: "PetOwners");
         }
     }
 }

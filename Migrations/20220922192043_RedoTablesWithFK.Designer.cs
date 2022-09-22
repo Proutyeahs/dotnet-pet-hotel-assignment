@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using pet_hotel.Models;
 
-namespace dotnet_bakery.Migrations
+namespace y.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20220922145440_petHotelDatabase")]
-    partial class petHotelDatabase
+    [Migration("20220922192043_RedoTablesWithFK")]
+    partial class RedoTablesWithFK
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,12 @@ namespace dotnet_bakery.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("ownerId")
+                        .HasColumnType("integer");
+
                     b.HasKey("id");
+
+                    b.HasIndex("ownerId");
 
                     b.ToTable("Pets");
                 });
@@ -63,6 +68,17 @@ namespace dotnet_bakery.Migrations
                     b.HasKey("id");
 
                     b.ToTable("PetOwners");
+                });
+
+            modelBuilder.Entity("pet_hotel.Pet", b =>
+                {
+                    b.HasOne("pet_hotel.PetOwner", "ownedBy")
+                        .WithMany()
+                        .HasForeignKey("ownerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ownedBy");
                 });
 #pragma warning restore 612, 618
         }
