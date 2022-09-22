@@ -6,7 +6,7 @@
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <IsPackable>false</IsPackable>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>dotnet_bakery</RootNamespace>
+    <RootNamespace>y</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
