@@ -41,7 +41,7 @@ namespace pet_hotel.Controllers
                 return NotFound(); // status 404
             }
 
-            return bread;
+            return petOwner;
         }
     }
 }
