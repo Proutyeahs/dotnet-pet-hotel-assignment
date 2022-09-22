@@ -41,6 +41,16 @@ namespace pet_hotel.Controllers
 
             return petOwner;
         }
+        
+          [HttpPost]
+        public IActionResult Created(PetOwner petOwner) {
+            Console.WriteLine("in post PetOwner");
+
+            _context.Add(petOwner);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(Created), new {id = petOwner.id}, petOwner);
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
