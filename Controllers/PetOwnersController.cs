@@ -34,14 +34,13 @@ namespace pet_hotel.Controllers
         [HttpGet("{id}")]
         public ActionResult<PetOwner> GetById(int id)
         {
-            var petOwner = _context.SingleOrDefault(petOwner => petOwner.id == id);
+            var petOwner = _context.PetOwners.SingleOrDefault(petOwner => petOwner.id == id);
 
             if(petOwner == null)
                 return NotFound();
 
             return petOwner;
         }
-}
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
