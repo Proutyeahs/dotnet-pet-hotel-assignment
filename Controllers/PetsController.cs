@@ -90,5 +90,20 @@ namespace pet_hotel.Controllers
 
             return NoContent();
         }
+
+         [HttpGet("{id}")]
+        public ActionResult<Pet> GetById(int id) {
+            Pet pet = _context.Pets
+                .Include(PetOwner => PetOwner.ownedBy)
+                .SingleOrDefault(pet => pet.id == id);
+            
+
+            if(pet is null) {
+                // can't find it
+                return NotFound(); // status 404
+            }
+
+            return pet;
+        }
     }
 }
