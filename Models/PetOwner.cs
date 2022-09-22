@@ -5,5 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace pet_hotel
 {
-    public class PetOwner {}
+    public class PetOwner {
+        public int id {get; set;}
+
+        [Required]
+        public string name {get; set;}
+        public string emailAddress {get; set;}
+
+        // [ForeignKey("petCount")]
+        // public int petCount {get; set;}
+    }
 }
