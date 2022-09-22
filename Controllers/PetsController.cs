@@ -26,6 +26,21 @@ namespace pet_hotel.Controllers
             return _context.Pets;
         }
 
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Pet pet) {
+            Console.WriteLine("updating bread");
+
+            if(id != pet.id) {
+                return BadRequest();
+            }
+
+            _context.Update(pet);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
         [HttpPost]
         public IActionResult Created(Pet pet) {
             Console.WriteLine("in create pet");
