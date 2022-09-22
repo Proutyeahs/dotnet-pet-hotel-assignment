@@ -63,5 +63,21 @@ namespace pet_hotel.Controllers
 
         //     return new List<Pet>{ newPet1, newPet2};
         // }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            Pet pet = _context.Pets.SingleOrDefault(b => b.id == id);
+
+            if(pet is null)
+            {
+                return NotFound();
+            }
+
+            _context.Pets.Remove(pet);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
