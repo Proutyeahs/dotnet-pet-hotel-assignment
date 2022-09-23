@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using pet_hotel.Models;
@@ -9,9 +10,10 @@ using pet_hotel.Models;
 namespace y.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220923142010_ChangedPetNameBackToName")]
+    partial class ChangedPetNameBackToName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,25 +28,25 @@ namespace y.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int>("breed")
+                    b.Property<int>("breedType")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("checkedInAt")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("color")
+                    b.Property<int>("colorType")
                         .HasColumnType("integer");
 
                     b.Property<string>("name")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("petOwnerid")
+                    b.Property<int>("ownerId")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
-                    b.HasIndex("petOwnerid");
+                    b.HasIndex("ownerId");
 
                     b.ToTable("Pets");
                 });
@@ -72,7 +74,7 @@ namespace y.Migrations
                 {
                     b.HasOne("pet_hotel.PetOwner", "petOwner")
                         .WithMany()
-                        .HasForeignKey("petOwnerid")
+                        .HasForeignKey("ownerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

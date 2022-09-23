@@ -23,7 +23,7 @@ namespace pet_hotel.Controllers
         // occur when the route is missing in this controller
         [HttpGet]
         public IEnumerable<Pet> GetPets() {
-            return _context.Pets;
+            return _context.Pets.Include(PetOwner => PetOwner.petOwner);
         }
 
 
@@ -94,7 +94,7 @@ namespace pet_hotel.Controllers
          [HttpGet("{id}")]
         public ActionResult<Pet> GetById(int id) {
             Pet pet = _context.Pets
-                .Include(PetOwner => PetOwner.ownedBy)
+                .Include(PetOwner => PetOwner.petOwner)
                 .SingleOrDefault(pet => pet.id == id);
             
 
